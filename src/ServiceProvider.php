@@ -3,9 +3,9 @@
 namespace Shemi\Translator;
 
 use Illuminate\Routing\Router;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class ManagerServiceProvider extends ServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
 
 	/**
@@ -54,14 +54,14 @@ class ManagerServiceProvider extends ServiceProvider
 	{
 
 		$resourcesPath = __DIR__ . '/../resources';
-
 		$this->loadViewsFrom("{$resourcesPath}/views", 'translator');
 		$this->publishes([
 			"{$resourcesPath}/views" => base_path('resources/views/vendor/laravel-translator'),
 		], 'views');
 
+		$publicPath = __DIR__ . '/../public';
 		$this->publishes([
-			"{$resourcesPath}/assets" => public_path('translator'),
+			$publicPath => public_path('translator'),
 		], 'assets');
 
 		$migrationPath = __DIR__ . '/../database/migrations';
