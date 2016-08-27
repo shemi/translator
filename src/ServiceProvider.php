@@ -2,7 +2,7 @@
 
 namespace Shemi\Translator;
 
-use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -50,7 +50,7 @@ class ServiceProvider extends BaseServiceProvider
 	 *
 	 * @return void
 	 */
-	public function boot(Router $router)
+	public function boot()
 	{
 
 		$resourcesPath = __DIR__ . '/../resources';
@@ -69,10 +69,10 @@ class ServiceProvider extends BaseServiceProvider
 			$migrationPath => base_path('database/migrations'),
 		], 'migrations');
 
-		$config = $this->app['config']->get('laravel-translator.route', []);
+		$config = config('translator.route', []);
 		$config['namespace'] = 'Shemi\Translator\Http\Controllers';
 
-		$router->group($config, function($router) {
+		Route::group($config, function($router) {
 			require "Http/routs.php";
 		});
 	}

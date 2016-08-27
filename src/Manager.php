@@ -14,7 +14,7 @@ class Manager
 {
 
 	const CONFIG_KEY = 'translator';
-	
+
 	/** @var \Illuminate\Foundation\Application */
 	protected $app;
 	/** @var \Illuminate\Filesystem\Filesystem */
@@ -35,20 +35,20 @@ class Manager
 	public static function createKeys($group, Collection $keys)
 	{
 		$createdKeys = collect([]);
-		
+
 		foreach($keys as $key) {
 			if($created = static::missingKey($group, $key)) {
 				$createdKeys->push($created->first());
 			}
 		}
-		
+
 		return $createdKeys;
 	}
-	
+
 	public static function missingKey($group, $key)
 	{
 		$translations = collect([]);
-		
+
 		if( static::isInBlackList($group) ) {
 			return false;
 		}
@@ -60,10 +60,10 @@ class Manager
 				'key'    => $key,
 			    'status' => Translation::STATUS_CHANGED
 			]);
-			
+
 			$translations->push($localeTrans);
 		}
-		
+
 		return $translations;
 	}
 
@@ -141,35 +141,35 @@ class Manager
 		if( $group == '*' ) {
 			return $this->exportAllTranslations();
 		}
-		
+
 		$translationsQry = Translation::where('group', $group)->whereNotNull('value');
 		$translationsToUpdate = $translationsQry->get();
 		$tree = $this->makeTree($translationsToUpdate);
-		
+
 		$phpGen = PhpGen::instance();
 		$langPath = $this->app->langPath();
-		
+
 		foreach( $tree as $locale => $groups ) {
-			
+
 			if( ! isset($groups[$group])) {
 				continue;
 			}
 
 			$translations = $groups[$group];
-			
+
 			$path = "{$langPath}/{$locale}/{$group}.php";
-			
+
 			$translations = $phpGen->getCode($translations);
-			
+
 			$output = "<?php\n\n";
 			$output .= "return ";
 			$output .= "{$translations}\n";
-			
+
 			$this->files->put($path, $output);
 		}
 
 		$translationsQry->update(['status' => Translation::STATUS_SAVED]);
-		
+
 		return $translationsToUpdate->pluck('key');
 	}
 
@@ -180,7 +180,7 @@ class Manager
 		foreach( $groups as $group ) {
 			$this->exportTranslations($group->group);
 		}
-		
+
 		return true;
 	}
 
@@ -207,7 +207,7 @@ class Manager
 	public static function getConfig($key = null, $default = null)
 	{
 		$configKey = self::CONFIG_KEY;
-		
+
 		if( $key == null ) {
 			return config($configKey, $default);
 		} else {
@@ -219,7 +219,7 @@ class Manager
 	{
 		return in_array($group, static::getConfig('exclude_groups'));
 	}
-	
+
 	/**
 	 * @param $str
 	 *
@@ -230,42 +230,42 @@ class Manager
 		$re = "/^(.*[:])(.+)$/";
 		$keys = explode("\n", $str);
 		$newKeys = collect([]);
-		
+
 		foreach($keys as $key) {
 			$key = trim($key);
-			
+
 			if(! $key) {
 				continue;
 			}
-			
+
 			if(! preg_match($re, $key, $matches)) {
 				$newKeys->push($key);
-				
+
 				continue;
 			}
-			
+
 			$key = trim($matches[1], " :");
 			$subKeys = explode(',', $matches[2]);
-			
-			
+
+
 			if(! $key || empty($subKeys)) {
 				continue;
 			}
-			
+
 			foreach($subKeys as $subKey) {
 				$subKey = trim($subKey);
-				
+
 				if(! $subKey) {
 					continue;
 				}
-				
+
 				$newKeys->push("{$key}.{$subKey}");
-				
+
 			}
-			
+
 		}
-		
+
 		return $newKeys->unique();
 	}
-	
+
 }

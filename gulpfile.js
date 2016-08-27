@@ -24,7 +24,7 @@ elixir(function(mix) {
 
         .webpack('app.js', './public/js', './resources/assets/js', {
 
-            devtool: "cheap-module-eval-source-map",
+            // devtool: "",
 
             themeLoader: {
                 themes: ['./resources/assets/sass/variables.scss']
@@ -49,7 +49,8 @@ elixir(function(mix) {
                 ],
                 plugins: [
                     'add-module-exports',
-                    'transform-runtime'
+                    'transform-runtime',
+                    'transform-object-rest-spread'
                 ]
             }
 
