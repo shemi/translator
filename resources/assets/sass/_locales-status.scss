@@ -1,0 +1,66 @@
+.statuses {
+
+  border-top: 1px solid rgba(black, 0.1);
+  margin-top: 4px;
+  padding-top: 4px;
+
+  .status {
+    float: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 2px 5px 2px 0;
+
+    .translation {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-size: 12px;
+      line-height: 1;
+      max-height: 37px;
+
+      &:hover {
+        max-height: none;
+      }
+
+    }
+
+    .locale {
+      //padding: 2px 0;
+      margin-right: 5px;
+      flex-shrink: 0;
+      width: 30px;
+      line-height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      background: $laravel-border-color;
+      border: 1px solid rgba(white, 0.4);
+    }
+
+    &.status__saved {
+      .locale {
+        background-color: $brand-success;
+        color: white;
+      }
+    }
+
+    &.status__changed {
+      .locale {
+        background-color: $brand-danger;
+        color: white;
+      }
+    }
+
+    &.status__new {
+      .locale {
+        background-color: $brand-info;
+        color: white;
+      }
+    }
+
+  }
+
+}
+
+.active > .statuses {
+  border-top: 1px solid rgba(white, 0.4);
+}

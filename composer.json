@@ -1,0 +1,34 @@
+{
+  "name": "shemi/laravel-translator",
+  "description": "Manage Laravel Translations",
+  "keywords": [
+    "laravel",
+    "translations",
+    "translator"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Shemi perez",
+      "email": "shemi.perez@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": "5.0.x|5.1.x|5.2.x",
+    "illuminate/translation": "5.0.x|5.1.x|5.2.x",
+    "symfony/finder": "~2.3|~3.0",
+    "aza/phpgen": "~1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Shemi\\Translator\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.2-dev"
+    }
+  },
+  "minimum-stability": "stable"
+}

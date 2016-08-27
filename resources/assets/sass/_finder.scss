@@ -1,0 +1,38 @@
+.finder-grid {
+
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: start;
+
+  .finder-grid-item {
+    display: inline-block;
+    padding: 0 5px;
+    width: 50%;
+
+    h3 {
+      margin-top: 15px;
+      font-size: 110%;
+      font-weight: bold;
+    }
+
+    .list-group-item {
+      button.btn-danger {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      &:hover button.btn-danger{
+        opacity: 1;
+      }
+
+    }
+
+    .list-group {
+      margin-bottom: 10px;
+    }
+
+  }
+
+}

@@ -1,0 +1,25 @@
+.group-translator {
+
+  //display: flex;
+  //flex-direction: column;
+
+
+  #main-translations-list {
+    //display: flex;
+    //flex-direction: column;
+    overflow: auto;
+    min-height: 262px;
+    position: relative;
+  }
+
+  .controls {
+    background: white;
+    padding: 15px;
+    border: 1px solid $laravel-border-color;
+    .form-inline {
+      margin-bottom: 0;
+    }
+
+  }
+
+}

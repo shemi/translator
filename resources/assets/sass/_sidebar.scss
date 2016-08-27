@@ -1,0 +1,30 @@
+.sidebar {
+
+  .sidebar-container {
+    position: fixed;
+    left: 0;
+    top: 51px;
+    bottom: 0;
+    background: white;
+    padding: 30px 10px;
+    width: 16.6666666667%;
+    border-right: 1px solid $laravel-border-color;
+  }
+
+  .nav-pills {
+    > li {
+      border-bottom: 1px solid $laravel-border-color;
+
+      a {
+        @include clearfix;
+
+        .badge {
+          float: right;
+        }
+
+      }
+
+    }
+  }
+
+}
